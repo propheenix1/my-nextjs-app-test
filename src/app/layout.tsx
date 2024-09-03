@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import Header from "./components/Header";
-
+import SessionProvider from "./SessionProvider";
 
 
 
@@ -16,7 +16,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-   
+   <SessionProvider>
     <html>
       <body>
         <Header />
@@ -25,6 +25,6 @@ export default function RootLayout({
         </div>
       </body>
     </html>
-  
+    </SessionProvider>
   );
 }

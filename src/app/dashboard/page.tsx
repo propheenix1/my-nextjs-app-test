@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import Hero from '../components/Hero'
+import { withAuth } from '../components/withAuth'; // Adjust the path accordingly
 
 interface DashboardItem {
   header: number;
@@ -11,7 +12,7 @@ interface DashboardItem {
   img: string;
 }
 
-export default function DashboardPage() {
+function Page() {
   const [dashboardData, setDashboardData] = useState<DashboardItem[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -90,3 +91,5 @@ export default function DashboardPage() {
 
   );
 }
+
+export default withAuth(Page)

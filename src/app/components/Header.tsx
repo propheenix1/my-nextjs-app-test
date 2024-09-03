@@ -4,10 +4,12 @@ import { useState, useEffect } from 'react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import Link from 'next/link'
 import Image from 'next/image'
+import { signOut, useSession } from 'next-auth/react'
 
 export default function Header() {
   const [sidebarOpen, setSidebarOpen] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
+  const { data: session } = useSession()
 
   // Check the screen size on mount and resize
   useEffect(() => {
@@ -59,14 +61,14 @@ export default function Header() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center py-6 md:justify-between">
               <div className="flex justify-start lg:w-0 lg:flex-1">
-                <Link href="/" className="text-xl font-bold text-gray-800 flex">
-                <Image
-                  src="/images/local-9.png"
-                  alt="Logo"
-                  width={40} // Adjust the width as needed
-                  height={40} // Adjust the height as needed
-                  className="mr-2"
-                />
+                <Link href="/" className="text-xl font-bold text-gray-800 flex items-center">
+                  <Image
+                    src="/images/local-9.png"
+                    alt="Logo"
+                    width={40} // Adjust the width as needed
+                    height={40} // Adjust the height as needed
+                    className="mr-2"
+                  />
                   Modern Website
                 </Link>
               </div>
@@ -84,7 +86,7 @@ export default function Header() {
                   )}
                 </button>
               </div>
-              <nav className="hidden md:flex space-x-10">
+              <nav className="hidden md:flex space-x-10 pr-52">
                 <Link href="/" className="text-base font-medium text-gray-500 hover:text-gray-900">
                   Home
                 </Link>
@@ -92,12 +94,35 @@ export default function Header() {
                   About
                 </Link>
                 <Link href="/dashboard" className="text-base font-medium text-gray-500 hover:text-gray-900">
-                Dashboard
+                  Dashboard
                 </Link>
                 <Link href="/contact" className="text-base font-medium text-gray-500 hover:text-gray-900">
                   Contact
                 </Link>
               </nav>
+              {session && (
+  <div className="flex items-center space-x-4">
+    {session.user?.image && (
+      <img
+        src={`/images/${session.user.image}`} // ใช้พาธ local ของภาพ
+        alt="Profile Picture"
+        width={40} // ปรับขนาดตามต้องการ
+        height={40} // ปรับขนาดตามต้องการ
+        className="rounded-full"
+      />
+    )}
+    <span className="mr-4">Welcome, {session.user?.name}!</span>
+    <button
+      onClick={() => signOut()}
+      className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded"
+    >
+      Sign out
+    </button>
+  </div>
+)}
+
+
+
             </div>
           </div>
         </header>

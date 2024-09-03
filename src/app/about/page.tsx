@@ -1,7 +1,9 @@
+'use client';
 import React from 'react'
 import Hero from '../components/Hero'
+import { withAuth } from '../components/withAuth'; // Adjust the path accordingly
 
-export default function page() {
+function Page() {
   return (
     <div>
         <Hero />
@@ -9,3 +11,4 @@ export default function page() {
     </div>
   )
 }
+export default withAuth(Page)

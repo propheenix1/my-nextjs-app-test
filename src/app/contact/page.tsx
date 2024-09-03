@@ -1,6 +1,9 @@
+'use client';
+
 import React from 'react';
 import Hero from '../components/Hero';
 import { fetchUsers } from '../lib/fetchData';
+import { withAuth } from '../components/withAuth'; // Adjust the path accordingly
 
 interface Users {
   id: number;
@@ -13,7 +16,7 @@ async function getUsers() {
   return Users;
 }
 
-export default async function Page() {
+async function Page() {
   const Users = await getUsers();
 
   return (
@@ -56,3 +59,5 @@ export default async function Page() {
 </div>
   );
 }
+
+export default withAuth(Page)
