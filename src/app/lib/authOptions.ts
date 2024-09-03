@@ -58,7 +58,7 @@ export const authOptions: NextAuthOptions = {
     },
     async jwt({ token, user }) {
       if (user) {
-        token.sub = user.id as string; // Ensure type casting for user.id
+        token.sub = user.name as string; // Ensure type casting for user.id
       }
       return token;
     },
